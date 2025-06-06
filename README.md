@@ -1,16 +1,7 @@
 # practiceapp
 
-A new Flutter project.
+This Flutter-based app aims to help Turkish high school students revise national curriculum topics (MEB müfredatı) through interactive quizzes.
 
-## Getting Started
+##MEB Quiz Uygulaması Bu Flutter tabanlı uygulama, lise öğrencilerinin MEB konularını test ederek tekrar edebilmesini amaçlar.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
