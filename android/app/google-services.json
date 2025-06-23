@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "194359617378",
+    "project_id": "tekrare-5eac1",
+    "storage_bucket": "tekrare-5eac1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194359617378:android:e7ca15fae23c4681ab2e3b",
+        "android_client_info": {
+          "package_name": "com.example.practiceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194359617378-o0eq3qn32tjq8n6ep22sb3v2o6h4a029.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.practiceapp",
+            "certificate_hash": "7dd756fb9a2537e565cf2d29f8de942d7c16fdf5"
+          }
+        },
+        {
+          "client_id": "194359617378-ja55c8f5amg8h98p2b8fd8ktqr3nacem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK0db5C36pBXTUBNQAJTvJMDhfzDuvJDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194359617378-ja55c8f5amg8h98p2b8fd8ktqr3nacem.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "194359617378-21cjl0akohkrfhvcl59ngso6i3p8acg9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.practiceapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
