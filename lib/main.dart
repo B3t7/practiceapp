@@ -4,6 +4,7 @@ import 'package:practiceapp/pages/tests/pyhsics/physicstest1.dart';
 import 'package:practiceapp/pages/colors.dart';
 import 'package:practiceapp/pages/mainpages/profile.dart';
 import 'package:practiceapp/auth/signup_page.dart';
+import 'package:practiceapp/auth/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:practiceapp/auth/auth_service.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final username = authService.value.currentUser?.displayName ?? 'Guest';
     return MaterialApp(
       routes: {
         '/mathtest1': (context) => const Mathtest1(),
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/home': (context) => const HomeScreen(),
         '/signup': (context) => const RegisterPage(),
+        '/login': (context) => const LoginPage(),
       },
 
       title: 'Quiz App',
@@ -50,70 +53,80 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onItemTapped(int index) {
     if (index == 1) {
-      Navigator.pushNamed(context, '/profile').then((_) {
-        setState(() {
-          _selectedIndex = 0; // Reset to Home after returning
-        });
-      });
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
+      Navigator.pushReplacementNamed(context, '/profile');
+    } else if (index == 0) {
+      // Already on Home, do nothing
+    } else if (index == 2) {
+      // Bookmarks page (implement if you have it)
+      // Navigator.pushReplacementNamed(context, '/bookmarks');
     }
+    setState(() {
+      _selectedIndex = index;
+    });
   }
-
-  final username = authService.value.currentUser?.displayName ?? 'Guest';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: offwhite,
-      appBar: AppBar(
-        backgroundColor: lightp,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            "Good morning, $username",
-            style: TextStyle(color: offwhite),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: CircleAvatar(
-              backgroundColor: mint,
-              child: Icon(Icons.person, color: lightp),
+    return ValueListenableBuilder<AuthService>(
+      valueListenable: authService,
+      builder: (context, value, child) {
+        final username = value.currentUser?.displayName ?? 'Guest';
+        return Scaffold(
+          backgroundColor: offwhite,
+          appBar: AppBar(
+            backgroundColor: lightp,
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "Welcome, $username",
+                style: TextStyle(color: offwhite),
+              ),
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CircleAvatar(
+                  backgroundColor: mint,
+                  child: Icon(Icons.person, color: lightp),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(18.0),
-        children: [
-          _buildQuizCard(),
-          const SizedBox(height: 16),
-          _buildFeaturedCard(),
-          const SizedBox(height: 16),
-          Text("Live Quizzes", style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          _buildQuizMath(context),
-          _buildQuizPyhsics(context),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: lightp,
-        selectedItemColor: mint,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Bookmarks',
+          body: ListView(
+            padding: const EdgeInsets.all(18.0),
+            children: [
+              _buildQuizCard(),
+              const SizedBox(height: 16),
+              _buildFeaturedCard(),
+              const SizedBox(height: 16),
+              Text(
+                "Live Quizzes",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              _buildQuizMath(context),
+              _buildQuizPyhsics(context),
+            ],
           ),
-        ],
-      ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: lightp,
+            selectedItemColor: mint,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.bookmark),
+                label: 'Bookmarks',
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

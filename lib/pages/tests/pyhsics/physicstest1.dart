@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practiceapp/pages/colors.dart';
 
 class Physicstest1 extends StatelessWidget {
-  const Physicstest1({Key? key}) : super(key: key);
+  const Physicstest1({super.key});
 
   @override
   Widget build(BuildContext context) {

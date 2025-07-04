@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../auth/auth_service.dart';
 import '../pages/colors.dart';
+import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +25,9 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await authService.value.signIn(email: email, password: password);
       if (mounted) {
-        Navigator.pop(context); // This returns to ProfilePage and triggers setState
+        Navigator.pop(
+          context,
+        ); // This returns to ProfilePage and triggers setState
       }
     } catch (e) {
       setState(() {
@@ -68,8 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onChanged: (value) => email = value,
-                    validator: (value) =>
-                        value == null || value.isEmpty ? 'Enter an email' : null,
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Enter an email'
+                        : null,
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -82,10 +86,41 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     onChanged: (value) => password = value,
-                    validator: (value) =>
-                        value == null || value.length < 6
-                            ? 'Password must be at least 6 characters'
-                            : null,
+                    validator: (value) => value == null || value.length < 6
+                        ? 'Password must be at least 6 characters'
+                        : null,
+                  ),
+                  // Add this block for "Forgot password?"
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () async {
+                        if (email.isEmpty) {
+                          setState(() {
+                            errorMessage =
+                                'Enter your email to reset password.';
+                          });
+                          return;
+                        }
+                        try {
+                          await authService.value.resetPassword(email: email);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Password reset email sent to $email',
+                                ),
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          setState(() {
+                            errorMessage = 'Failed to send reset email: $e';
+                          });
+                        }
+                      },
+                      child: const Text('Forgot password?'),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   if (errorMessage != null)
@@ -95,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   if (isLoading)
                     const CircularProgressIndicator()
-                  else
+                  else ...[
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: lightp,
@@ -108,6 +143,19 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: const Text('Sign In'),
                     ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RegisterPage(),
+                          ),
+                        );
+                      },
+                      child: const Text("Don't have an account? Sign Up"),
+                    ),
+                  ],
                 ],
               ),
             ),

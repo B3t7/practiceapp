@@ -34,7 +34,7 @@ class AuthService {
     await fauth.signOut();
   }
 
-  Future<void> ResetPassword({required String email}) async {
+  Future<void> resetPassword({required String email}) async {
     await fauth.sendPasswordResetEmail(email: email);
   }
 
